@@ -16,6 +16,8 @@ type Record struct {
 	Offset Offset `json:"offset"`
 }
 
+// write the Record struct as a protobuf message
+
 func NewLog() *Log {
 	return &Log{}
 }
@@ -36,7 +38,7 @@ func (c *Log) Read(offset Offset) (Record, error) {
 	the "Read" function simply returns a copy of the requested record, and does not modify the log in any way
 	there is no race condition to prevent, and the use of a mutex is not necessary for reads.
 	*/
-	if offset >= Offset(len(c.records)) {
+	if offset >= Offset(len(c.records)) || offset < Offset(0) {
 		return Record{}, ErrOffsetNotFound
 	}
 	return c.records[offset], nil

@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	log.Println("Starting server...")
 	srv := server.NewHTTPServer(":8080")
 	log.Fatal(srv.ListenAndServe())
 }
