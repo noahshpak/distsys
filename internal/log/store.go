@@ -50,7 +50,7 @@ func (s *store) Append(p []byte) (n uint64, pos uint64, err error) {
 	defer s.mu.Unlock()
 	pos = s.size
 	// write len(p) as BigEndian bytes (8 bytes for uint64)
-	if err := binary.Write(s.buf, enc, p); err != nil {
+	if err := binary.Write(s.buf, enc, uint64(len(p))); err != nil {
 		return 0, 0, err
 	}
 	// write actual data
